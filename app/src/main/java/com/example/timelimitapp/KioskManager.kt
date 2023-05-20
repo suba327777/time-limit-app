@@ -10,7 +10,7 @@ import android.content.Intent
 
 class KioskManager() {
     companion object {
-        fun setKioskMode(context: Activity) {
+        fun startKioskMode(context: Activity) {
 
             val devicePolicyManager =
                 context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
@@ -18,6 +18,16 @@ class KioskManager() {
 
             if (devicePolicyManager.isAdminActive(myDeviceAdmin)) {
                 context.startLockTask()
+            }
+        }
+
+        fun stopKioskMode(context:Activity){
+             val devicePolicyManager =
+                context.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
+            val myDeviceAdmin = ComponentName(context, KioskDeviceAdminReceiver::class.java)
+
+            if(devicePolicyManager.isAdminActive(myDeviceAdmin)){
+                context.stopLockTask()
             }
         }
 
