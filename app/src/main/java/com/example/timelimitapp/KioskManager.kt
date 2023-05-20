@@ -29,7 +29,7 @@ class KioskManager() {
                 val dialog = AlertDialog.Builder(context)
                     .setTitle("権限を追加してください")
                     .setMessage("この機能を使用するためには特定の権限が必要です。設定画面を開き、アプリをデバイス管理者に設定してください。")
-                    .setPositiveButton("設定画面に遷移") { dialog, _ ->
+                    .setPositiveButton("設定画面に移動") { dialog, _ ->
                         context.startActivity(
                             Intent().setComponent(
                                 ComponentName(
@@ -45,15 +45,15 @@ class KioskManager() {
                 dialog.show()
             }
         }
+    }
 
-        class KioskDeviceAdminReceiver : DeviceAdminReceiver() {
-            override fun onEnabled(context: Context, intent: Intent) {
-                super.onEnabled(context, intent)
-            }
+    class KioskDeviceAdminReceiver : DeviceAdminReceiver() {
+        override fun onEnabled(context: Context, intent: Intent) {
+            super.onEnabled(context, intent)
+        }
 
-            override fun onDisabled(context: Context, intent: Intent) {
-                super.onDisabled(context, intent)
-            }
+        override fun onDisabled(context: Context, intent: Intent) {
+            super.onDisabled(context, intent)
         }
     }
 }
