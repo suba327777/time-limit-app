@@ -9,6 +9,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+//import com.example.timelimitapp.ui.components.SettingTimer
+
+
 import com.example.timelimitapp.ui.components.TextSample
 import com.example.timelimitapp.ui.theme.TimeLimitAppTheme
 
@@ -22,7 +25,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    TextSample(name = "Android")
+                   TextSample(name = "Android")
+                    //SettingTimer()
                 }
             }
        }
@@ -36,3 +40,4 @@ fun GreetingPreview() {
         TextSample("Android")
     }
 }
+
