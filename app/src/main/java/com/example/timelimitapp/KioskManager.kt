@@ -10,6 +10,7 @@ import android.content.Intent
 
 class KioskManager() {
     companion object {
+
         fun startKioskMode(context: Activity) {
 
             val devicePolicyManager =
