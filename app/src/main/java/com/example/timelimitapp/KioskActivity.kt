@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
+import com.example.timelimitapp.ui.components.ButtonCounter
 
 class KioskActivity:AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class KioskActivity:AppCompatActivity() {
         setContent {
             Column() {
                 Text(text = "${startmTime}~${endmTime}")
+                ButtonCounter(maxCount = 5)
             }
         }
 
