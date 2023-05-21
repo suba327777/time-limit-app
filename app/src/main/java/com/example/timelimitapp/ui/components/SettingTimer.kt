@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.timelimitapp.KioskActivity
 import com.example.timelimitapp.KioskManager
+import com.example.timelimitapp.MainActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -134,7 +135,7 @@ fun SettingTimer() {
                         val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
                         val currentMinute = currentTime.get(Calendar.MINUTE)
 
-                        if (startmTime.value.isNotEmpty()&&!startmTimeSet.value) {
+                        if (startmTime.value.isNotEmpty()&&endmTime.value.isNotEmpty()&&!startmTimeSet.value) {
                             // Check start time
                             val startTimeParts = startmTime.value.split(":")
                             val startHour = startTimeParts[0].toInt()
@@ -145,12 +146,12 @@ fun SettingTimer() {
                                 startmTimeSet.value = true
                                 endmTimeSet.value = false
 
-                               /* val intent = Intent(mContext,KioskActivity::class.java)
-                                mContext.startActivity(intent)*/
+                                val intent = Intent(mContext,KioskActivity::class.java)
+                                mContext.startActivity(intent)
                             }
                         }
 
-                        if(endmTime.value.isNotEmpty()&&!endmTimeSet.value){
+                        if(startmTime.value.isNotEmpty()&&endmTime.value.isNotEmpty()&&!endmTimeSet.value){
                             val endTimeParts = endmTime.value.split(":")
                             val endHour = endTimeParts[0].toInt()
                             val endMinute = endTimeParts[1].toInt()
@@ -159,6 +160,10 @@ fun SettingTimer() {
                                 KioskManager.stopKioskMode(mContext as Activity)
                                 endmTimeSet.value = true
                                 startmTimeSet.value = false
+
+                                val intent = Intent(mContext, MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                                mContext.startActivity(intent)
                             }
                         }
                     }
