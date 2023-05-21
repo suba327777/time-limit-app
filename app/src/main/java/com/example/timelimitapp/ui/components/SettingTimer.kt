@@ -49,14 +49,14 @@ fun SettingTimer() {
     val startmTimePickerDialog = TimePickerDialog(
         mContext,
         { _, startHour: Int, startMinute: Int ->
-            startmTime.value = "$startHour:$startMinute"
-        }, mHour, mMinute, false
+            startmTime.value = "%02d:%02d".format(startHour, startMinute)
+        }, mHour, mMinute, true
     )
     val endmTimePickerDialog = TimePickerDialog(
         mContext,
         { _, endHour: Int, endMinute: Int ->
-            endmTime.value = "$endHour:$endMinute"
-        }, mHour, mMinute, false
+            endmTime.value = "%02d:%02d".format(endHour, endMinute)
+        }, mHour, mMinute, true
     )
     println(startmTime.value)
     println(endmTime.value)
@@ -69,7 +69,7 @@ fun SettingTimer() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "開始時間", fontSize = 18.sp)
+            //Text(text = "開始時間", fontSize = 18.sp)
 
             // On button click, TimePicker is
             // displayed, user can select a time
@@ -77,28 +77,28 @@ fun SettingTimer() {
                 onClick = { startmTimePickerDialog.show() },
                 //colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58))
             ) {
-                Text(text = "Open Time Picker", color = Color.Black)
+                Text(text = "Setting Timer", color = Color.Black)
             }
 
 
             // Display selected time
 
-            Text(text = "Selected Time: ${startmTime.value}", fontSize = 30.sp)
-// Add a spacer of 100dp
+            Text(text = "開始時間: ${startmTime.value}", fontSize = 30.sp)
+            // Add a spacer of 100dp
             Spacer(modifier = Modifier.size(100.dp))
 
-            Text(text = "終了時間", fontSize = 18.sp)
+            //Text(text = "終了時間", fontSize = 18.sp)
             Button(
                 onClick = { endmTimePickerDialog.show() },
                 //colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58))
             ) {
-                Text(text = "Open Time Picker", color = Color.Black)
+                Text(text = "Setting Timer", color = Color.Black)
             }
 
 
             // Display selected time
 
-            Text(text = "Selected Time: ${endmTime.value}", fontSize = 30.sp)
+            Text(text = "終了時間: ${endmTime.value}", fontSize = 30.sp)
             /*
                         TextField(
                             value = endTime,
@@ -119,23 +119,23 @@ fun SettingTimer() {
             val startmTimeSet = remember {
                 mutableStateOf(false)
             }
-            val endmTimeSet = remember{
+            val endmTimeSet = remember {
                 mutableStateOf(false)
             }
 
             //Run timer in the background
             //TODO startmTimeとendmTimeが同じ時に挙動がおかしくなる
             val coroutineScope = rememberCoroutineScope()
-            LaunchedEffect(Unit){
+            LaunchedEffect(Unit) {
                 coroutineScope.launch {
-                    while (true){
+                    while (true) {
                         delay(1000)
                         // Check if it's time to activate or deactivate Kiosk mode
                         val currentTime = Calendar.getInstance()
                         val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
                         val currentMinute = currentTime.get(Calendar.MINUTE)
 
-                        if (startmTime.value.isNotEmpty()&&endmTime.value.isNotEmpty()&&!startmTimeSet.value) {
+                        if (startmTime.value.isNotEmpty() && endmTime.value.isNotEmpty() && !startmTimeSet.value) {
                             // Check start time
                             val startTimeParts = startmTime.value.split(":")
                             val startHour = startTimeParts[0].toInt()
@@ -146,14 +146,14 @@ fun SettingTimer() {
                                 startmTimeSet.value = true
                                 endmTimeSet.value = false
 
-                                val intent = Intent(mContext,KioskActivity::class.java)
-                                intent.putExtra("startmTime",startmTime.value)
-                                intent.putExtra("endmTime",endmTime.value)
+                                val intent = Intent(mContext, KioskActivity::class.java)
+                                intent.putExtra("startmTime", startmTime.value)
+                                intent.putExtra("endmTime", endmTime.value)
                                 mContext.startActivity(intent)
                             }
                         }
 
-                        if(startmTime.value.isNotEmpty()&&endmTime.value.isNotEmpty()&&!endmTimeSet.value){
+                        if (startmTime.value.isNotEmpty() && endmTime.value.isNotEmpty() && !endmTimeSet.value) {
                             val endTimeParts = endmTime.value.split(":")
                             val endHour = endTimeParts[0].toInt()
                             val endMinute = endTimeParts[1].toInt()
@@ -164,7 +164,8 @@ fun SettingTimer() {
                                 startmTimeSet.value = false
 
                                 val intent = Intent(mContext, MainActivity::class.java)
-                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                                intent.flags =
+                                    Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                                 mContext.startActivity(intent)
                             }
                         }
