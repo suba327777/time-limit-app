@@ -18,6 +18,8 @@ class KioskActivity:AppCompatActivity() {
                 //挙動無効化のためnone
             }
         }
+
+        setTheme(R.style.WhiteTheme)
         setContent {
             Column() {
                 Text(text = "${startmTime}~${endmTime}")
@@ -27,9 +29,5 @@ class KioskActivity:AppCompatActivity() {
         onBackPressedDispatcher.addCallback(this,callback)
 
     }
-
-   /* override fun onBackPressed() {
-        super.onBackPressed()
-    }*/
 
 }
