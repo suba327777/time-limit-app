@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <device-admin>
     <uses-policies>
-<!--        <limit-password />
+        <limit-password />
         <watch-login />
         <reset-password />
         <force-lock />
@@ -9,6 +9,6 @@
         <expire-password />
         <encrypted-storage />
         <disable-camera />
-        <disable-keyguard-features />-->
+        <disable-keyguard-features />
     </uses-policies>
 </device-admin>
