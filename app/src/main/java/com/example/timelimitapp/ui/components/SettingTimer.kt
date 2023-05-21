@@ -147,6 +147,8 @@ fun SettingTimer() {
                                 endmTimeSet.value = false
 
                                 val intent = Intent(mContext,KioskActivity::class.java)
+                                intent.putExtra("startmTime",startmTime.value)
+                                intent.putExtra("endmTime",endmTime.value)
                                 mContext.startActivity(intent)
                             }
                         }
