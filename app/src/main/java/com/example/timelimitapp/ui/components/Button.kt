@@ -13,27 +13,32 @@ import com.example.timelimitapp.KioskManager
 import com.example.timelimitapp.MainActivity
 
 @Composable
-fun ButtonCounter(maxCount:Int){
+fun ButtonCounter(maxCount: Int) {
     val context = LocalContext.current
     val count = remember { mutableStateOf(0) }
     val isMaxCountReached = remember { mutableStateOf(false) }
+
+    if (isMaxCountReached.value) {
+        KioskManager.stopKioskMode(context as Activity)
+        val intent = Intent(context, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        context.startActivity(intent)
+    }
     Button(onClick = {
-        if(count.value < maxCount){
+        if (count.value < maxCount) {
             count.value++
         }
-        if(count.value>= maxCount){
+        if (count.value >= maxCount) {
             isMaxCountReached.value = true
         }
     }) {
         Text(text = "Click Me")
     }
 
-    if(isMaxCountReached.value){
-        KioskManager.stopKioskMode(context as Activity)
-        val intent = Intent(context, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-        context.startActivity(intent)
-    }
+    val progress = (count.value.toFloat() / maxCount.toFloat())
+    ProgressBar(progress = progress)
+
+
 }
 
 @Preview(showBackground = true)
