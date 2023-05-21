@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 fun ProgressBar(progress:Float) {
     LinearProgressIndicator(
         progress = progress,
-        modifier = Modifier.size(width = 250.dp, height = 40.dp)
+        modifier = Modifier.size(width = 1000.dp, height = 40.dp)
             .clip(RoundedCornerShape(8.dp))
     )
 
